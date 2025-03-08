@@ -1,6 +1,7 @@
 package utilities;
 
 import com.microsoft.playwright.*;
+import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
@@ -10,7 +11,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Hooks extends TestListenerAdapter {
+public class Hooks implements ITestListener {
     private Playwright playwright;
     private Browser browser;
     public static Page page;
@@ -32,7 +33,7 @@ public class Hooks extends TestListenerAdapter {
         page.navigate(PropertyUtils.getProperty("url"));
     }
 
-    @Override
+
     public void OnTestSuccess(ITestResult result) {
         cleanupOldTraces();
 
