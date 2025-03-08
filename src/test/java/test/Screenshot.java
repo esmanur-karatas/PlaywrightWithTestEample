@@ -1,3 +1,5 @@
+package test;
+
 import com.microsoft.playwright.*;
 
 import java.awt.*;

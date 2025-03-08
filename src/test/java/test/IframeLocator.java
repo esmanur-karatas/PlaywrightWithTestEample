@@ -1,9 +1,10 @@
-import com.microsoft.playwright.Frame;
+package test;
+
 import com.microsoft.playwright.*;
 
 import java.awt.*;
-import java.util.List;
-public class IframeUrl {
+
+public class IframeLocator {
     public static void main(String[] args) throws InterruptedException {
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -21,30 +22,28 @@ public class IframeUrl {
         Locator title = page.locator("//h3");
         System.out.println("title " + title.innerText());
 
-        List<Frame> frames = page.frames();
-        System.out.println("size " + frames.size());
+        // Frame Locator
+        FrameLocator frameLocator = page.frameLocator("#mce_0_ifr");
 
-        for (Frame frame : frames) {
-            System.out.println("url " + frame.url());
-
-        }
-
-        // Frames by url
-        Frame frame = page.frameByUrl("about:blank");
-
-        Locator body = frame.getByText("Your content goes here.");
+        Locator body = frameLocator.getByText("Your content goes here.");
         body.click();
-        body.clear();
+        //body.clear();
 
-        Locator  inputText = frame.getByLabel("Rich Text Area. Press ALT-0 for help.");
-        inputText.fill("hello world");
+        Locator inputText = frameLocator.getByLabel("Rich Text Area. Press ALT-0 for help.");
+        inputText.fill("merhabalar");
+
+        //page.frameLocator("iframe[title=\"Rich Text Area\"]").getByText("Your content goes here.").click();
+        //page.frameLocator("iframe[title=\"Rich Text Area\"]").getByLabel("Rich Text Area. Press ALT-0").fill("merhabalar");
 
         Thread.sleep(2000);
+
+
+        Locator elementalSeleniumText = page.getByText("Elemental Selenium");
+        System.out.println(elementalSeleniumText.innerText());
 
         page.close();
         browser.close();
         playwright.close();
 
     }
-
 }

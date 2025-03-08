@@ -1,9 +1,12 @@
+package test;
+
 import com.microsoft.playwright.*;
 
 import java.awt.*;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class UploadFile3 {
+public class UploadFile2 {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -17,17 +20,19 @@ public class UploadFile3 {
         Page page = browser.newPage();
         page.setViewportSize(width, height);
 
-        page.navigate("http://autopract.com/selenium/upload2/");
+        page.navigate("https://demo.automationtesting.in/FileUpload.html");
 
-        // uploadad single file with file chooser(without input tag)
-        Locator dosyaSecButton = page.locator("a[id='pickfiles']");
+        // Select multiple files
+        Locator dosyaSecButton = page.locator("input[id='input-4']");
 
-        String dosyaYolu = System.getProperty("user.home") + "/Downloads/Sticker (6).pdf";
+        String dosyaYolu = System.getProperty("user.home")+ "/Downloads/Sticker (6).pdf";
+        String dosyaYolu2 = System.getProperty("user.home")+ "/Downloads/Sticker (6).pdf";
 
-        FileChooser fileChooser = page.waitForFileChooser(() -> {
-            dosyaSecButton.click();
-        });
-        fileChooser.setFiles(Paths.get(dosyaYolu));
+        dosyaSecButton.setInputFiles(new Path[] {Paths.get(dosyaYolu), Paths.get(dosyaYolu2)});
+
+        Locator uploadButton = page.getByTitle("Upload selected files");
+        uploadButton.click();
+
 
         Thread.sleep(5000);
         page.close();

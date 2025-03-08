@@ -1,3 +1,4 @@
+package test;
 
 import com.microsoft.playwright.*;
 

@@ -1,3 +1,4 @@
+package test;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
@@ -6,8 +7,10 @@ import com.microsoft.playwright.Playwright;
 
 import java.awt.*;
 
-public class Tab {
-    public static void main(String[] args) throws InterruptedException {
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+public class PageAssertion {
+    public static void main(String[] args) {
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dimension.getWidth();
@@ -19,27 +22,25 @@ public class Tab {
         Page page = browser.newPage();
         page.setViewportSize(width, height);
 
-        page.navigate("https://the-internet.herokuapp.com/windows");
+        page.navigate("https://www.ebay.com/");
 
-        // Get page after a specific action (e.g. clicking a link)
-        Page newPage = page.context().waitForPage(() -> {
-            page.getByText("Click Here").click(); // Opens a new tab
-        });
-        newPage.waitForLoadState();
-        newPage.setViewportSize(width, height);
-        System.out.println("yeni sayfa basligi " + newPage.title());
+        // page assertions
 
-        Thread.sleep(5000);
+        // hasUrl url eşleşiyor mu
+        assertThat(page).hasURL("https://www.ebay.com/");
 
-        // Eski sekmeye geri dön
-        page.bringToFront();
+        // hasTitle başlığın tammamına sahip mi onu dpğrular
+        assertThat(page).hasTitle("Electronics, Cars, Fashion, Collectibles & More | eBay");
 
+        // not () başlık eşleşiyor mu aynı mı ona sahip değilse yani test kelimesine sahip değil
+        assertThat(page).not().hasTitle("test");
 
-        Thread.sleep(5000);
         page.close();
         browser.close();
         playwright.close();
 
+
     }
 
 }
+

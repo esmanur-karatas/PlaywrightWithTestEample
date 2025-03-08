@@ -1,10 +1,13 @@
+package test;
 
 import com.microsoft.playwright.*;
 
 import java.awt.*;
 
-public class MouseClick {
+public class Keyboard {
+
     public static void main(String[] args) throws InterruptedException {
+
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dimension.getWidth();
         int height = (int) dimension.getHeight();
@@ -15,26 +18,38 @@ public class MouseClick {
         Page page = browser.newPage();
         page.setViewportSize(width, height);
 
-        page.navigate("https://demoqa.com/buttons");
+        page.navigate("https://demoqa.com/login");
 
-        // Generic click
-        Locator clickMe = page.getByText("Click Me").nth(2);
-        clickMe.click();
+        Locator userName = page.getByPlaceholder("UserName");
+        userName.click();
 
+        // insertText
+        page.keyboard().insertText("gokhan");
         Thread.sleep(2000);
 
-        // Double click
-        Locator doubleClickMe = page.getByText("Double Click Me");
-        doubleClickMe.dblclick();
-
+        // press
+        page.keyboard().press("Meta+A");
+        page.keyboard().press("Backspace");
         Thread.sleep(2000);
 
-        // Hover over element
-        page.getByText("Right Click Me").hover();
+        // type
+        page.keyboard().type("agar");
+
+        // down
+        page.keyboard().down("Shift");
+        page.keyboard().press("A");
+
+        // up
+        page.keyboard().up("Shift");
+        page.keyboard().press("b");
 
 
+
+
+        Thread.sleep(3000);
         page.close();
         browser.close();
         playwright.close();
+
     }
 }

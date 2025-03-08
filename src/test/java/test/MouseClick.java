@@ -1,12 +1,11 @@
+package test;
+
 import com.microsoft.playwright.*;
 
 import java.awt.*;
-import java.nio.file.Paths;
 
-public class UploadFile1 {
-
+public class MouseClick {
     public static void main(String[] args) throws InterruptedException {
-
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dimension.getWidth();
         int height = (int) dimension.getHeight();
@@ -17,22 +16,26 @@ public class UploadFile1 {
         Page page = browser.newPage();
         page.setViewportSize(width, height);
 
-        page.navigate("https://the-internet.herokuapp.com/upload");
+        page.navigate("https://demoqa.com/buttons");
 
-        // Select one file
-        Locator dosyaSecButton = page.locator("input[id='file-upload']");
-        String dosyaYolu = System.getProperty("user.home")+ "/Downloads/Sticker (6).pdf";
+        // Generic click
+        Locator clickMe = page.getByText("Click Me").nth(2);
+        clickMe.click();
 
-        dosyaSecButton.setInputFiles(Paths.get(dosyaYolu));
+        Thread.sleep(2000);
 
-        page.locator("input[id='file-submit']").click();
+        // Double click
+        Locator doubleClickMe = page.getByText("Double Click Me");
+        doubleClickMe.dblclick();
+
+        Thread.sleep(2000);
+
+        // Hover over element
+        page.getByText("Right Click Me").hover();
 
 
-        Thread.sleep(5000);
         page.close();
         browser.close();
         playwright.close();
-
-
     }
 }

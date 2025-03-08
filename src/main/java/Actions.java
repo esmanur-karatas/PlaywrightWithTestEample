@@ -4,9 +4,9 @@ import com.microsoft.playwright.options.SelectOption;
 import java.awt.*;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 public class Actions {
-    public static void main(String[] args) throws InterruptedException {
+      public static void main(String[] args) {
+
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dimension.getWidth();
@@ -44,20 +44,19 @@ public class Actions {
 
         businessAccount.setChecked(true);
         assertThat(businessAccount).isChecked();
-        Thread.sleep(3000);
 
         page.goBack();
 
         // Select options
         Locator selectCategory = page.getByLabel("Select a category for search");
-        Thread.sleep(3000);
+
         // select by value
         selectCategory.selectOption("2984");
-        Thread.sleep(3000);
+
 
         // select by label
         selectCategory.selectOption(new SelectOption().setLabel("Consumer Electronics"));
-        Thread.sleep(3000);
+
 
 
         page.close();
@@ -66,3 +65,4 @@ public class Actions {
 
     }
 }
+

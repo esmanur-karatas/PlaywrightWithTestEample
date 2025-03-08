@@ -1,3 +1,5 @@
+package test;
+
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
@@ -5,10 +7,9 @@ import com.microsoft.playwright.Playwright;
 
 import java.awt.*;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class PageAssertion {
-    public static void main(String[] args) {
+public class DragAndDrop {
+    public static void main(String[] args) throws InterruptedException {
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dimension.getWidth();
@@ -20,25 +21,25 @@ public class PageAssertion {
         Page page = browser.newPage();
         page.setViewportSize(width, height);
 
-        page.navigate("https://www.ebay.com/");
+        page.navigate("https://demoqa.com/droppable");
 
-        // page assertions
+        //Drag and Drop
+       // page.getByText("Drag me").first().dragTo(page.getByText("Drop here").first());
 
-        // hasUrl url eşleşiyor mu
-        assertThat(page).hasURL("https://www.ebay.com/");
 
-        // hasTitle başlığın tammamına sahip mi onu dpğrular
-        assertThat(page).hasTitle("Electronics, Cars, Fashion, Collectibles & More | eBay");
+        // manually
+        page.getByText("Drag me").first().hover();
+        page.mouse().down();
+        page.getByText("Drop here").first().hover();
+        page.mouse().up();
 
-        // not () başlık eşleşiyor mu aynı mı ona sahip değilse yani test kelimesine sahip değil
-        assertThat(page).not().hasTitle("test");
 
+
+        Thread.sleep(3000);
         page.close();
         browser.close();
         playwright.close();
 
 
     }
-
 }
-

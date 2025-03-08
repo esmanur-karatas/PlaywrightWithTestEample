@@ -1,3 +1,5 @@
+package test;
+
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
@@ -5,8 +7,7 @@ import com.microsoft.playwright.Playwright;
 
 import java.awt.*;
 
-public class Window {
-
+public class Tab {
     public static void main(String[] args) throws InterruptedException {
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -17,17 +18,23 @@ public class Window {
         Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
 
         Page page = browser.newPage();
-
-
         page.setViewportSize(width, height);
-        page.navigate("https://demoqa.com/browser-windows");
 
-        // Get popup after a specific action (e.g., click)
-        Page popup = page.waitForPopup(() -> {
-            page.getByText("New Window").first().click();
+        page.navigate("https://the-internet.herokuapp.com/windows");
+
+        // Get page after a specific action (e.g. clicking a link)
+        Page newPage = page.context().waitForPage(() -> {
+            page.getByText("Click Here").click(); // Opens a new tab
         });
-        popup.waitForLoadState();
-        System.out.println("sayfanin basligi " + popup.title());
+        newPage.waitForLoadState();
+        newPage.setViewportSize(width, height);
+        System.out.println("yeni sayfa basligi " + newPage.title());
+
+        Thread.sleep(5000);
+
+        // Eski sekmeye geri dön
+        page.bringToFront();
+
 
         Thread.sleep(5000);
         page.close();
@@ -35,4 +42,5 @@ public class Window {
         playwright.close();
 
     }
+
 }

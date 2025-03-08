@@ -1,10 +1,15 @@
+package test;
+
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.SelectOption;
 
 import java.awt.*;
 
-public class DropDownMenu {
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+
+public class CheckBoxesRadioButtons {
     public static void main(String[] args) throws InterruptedException {
+
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) dimension.getWidth();
         int height = (int) dimension.getHeight();
@@ -17,18 +22,23 @@ public class DropDownMenu {
 
         page.navigate("https://www.ebay.com/");
 
-        // Select options
-        Locator selectCategory = page.getByLabel("Select a category for search");
+        Locator registerButton = page.getByText("register").first();
+        registerButton.click();
+        Thread.sleep(15000);
+
+        // Checkboxes and radio buttons
+        Locator businessAccount = page.getByText("Business").nth(1);
+
+        businessAccount.click();
+        assertThat(businessAccount).isChecked();
         Thread.sleep(3000);
 
-        // select by value
-        selectCategory.selectOption("2984"); // baby
+        /*
+        businessAccount.setChecked(true);
+        assertThat(businessAccount).isChecked();
         Thread.sleep(3000);
 
-        // select by label
-        selectCategory.selectOption(new SelectOption().setLabel("Consumer Electronics"));
-        Thread.sleep(3000);
-
+         */
 
         page.close();
         browser.close();
