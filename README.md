@@ -59,7 +59,7 @@ npx playwright show-report
 🛠️ Eğer projeye katkı sağlamak isterseniz, PR gönderebilir veya issue oluşturabilirsiniz.  
 ⭐ Beğendiyseniz, repo’yu yıldızlamayı unutmayın!  
 
-📩 Bana ulaşmak için: [LinkedIn Profiliniz]  
+📩 Bana ulaşmak için: https://www.linkedin.com/in/esmanur-karatas/
 
 
 ![image](https://github.com/user-attachments/assets/5c433773-7550-4bd5-a4f4-0c5e625a3d65)
