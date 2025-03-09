@@ -27,7 +27,6 @@ public class Actions {
         // Keys and shortcuts
         // searchBox.press("Enter");
         page.keyboard().press("Enter");//entera basmak için
-        Thread.sleep(3000);
 
         Locator register = page.getByText("register").first();
         register.click();
